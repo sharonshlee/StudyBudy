@@ -1,19 +1,24 @@
 from django.shortcuts import render, redirect
-from .models import Room
+from .models import Room, Topic
 from .forms import RoomForm
 
 
 # Create your views here.
 
-# rooms = [
-#     {'id': 1, 'name': "Let's learn python!"},
-#     {'id': 2, 'name': "Let's learn javascript!"},
-#     {'id': 3, 'name': "Let's learn html!"},
-# ]
 def home(request):
     # get, filter, exclude
-    rooms = Room.objects.all()
-    context = {'rooms': rooms}
+    q = request.GET.get('q') if request.GET.get('q') != None else ''
+
+    # "topic__name" --> query upwards to the parent
+    # "icontains" --> topic name at least contains the value in q
+    # "contains" == case sensitive, icontains == case insensitive
+    # can use startswith, endswith
+    # if q is '', all topics will be matched without filter
+    rooms = Room.objects.filter(topic__name__icontains=q)
+
+    topics = Topic.objects.all()
+
+    context = {'rooms': rooms, 'topics': topics}
     return render(request, 'base/home.html', context)
 
 def room(request, pk):
