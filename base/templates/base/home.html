@@ -6,11 +6,18 @@
 <h1>Home Template</h1>
 
 <div>
+  <a href="{% urls 'create-rooom' %}">Create Room</a>
+
   <div>
     {% for room in rooms %}
     <div>
       <h5>
-        {{room.id}} -- <a href="{% url 'room' room.id %}">{{room.name}}</a>
+        <span>@{{room.host.username}}</span>
+        <p>
+          {{room.id}} -- <a href="{% url 'room' room.id %}">{{room.name}}</a>
+        </p>
+        <small>{{room.topic.name}}</small>
+        <hr />
       </h5>
     </div>
     {% endfor %}

@@ -20,6 +20,7 @@ class Room(models.Model):
     def __str__(self):
         return self.name
 
+# on_delete=models.CASCADE
 # all the children will be deleted once the parent is deleted
 class Message(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
