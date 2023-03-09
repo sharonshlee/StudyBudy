@@ -88,8 +88,10 @@ def home(request):
     topics = Topic.objects.all()
     # count() works faster than len()
     rooms_count = rooms.count()
+    room_messages = Message.objects.all()
 
-    context = {'rooms': rooms, 'topics': topics, 'rooms_count': rooms_count}
+    context = {'rooms': rooms, 'topics': topics, 'rooms_count': rooms_count,
+               'room_messages': room_messages}
     return render(request, 'base/home.html', context)
 
 
@@ -100,7 +102,8 @@ def room(request, pk):
     # parent (room) query child model (message)
     # -created desc
     # 1:m --> use message_set to access to many
-    room_messages = room.message_set.all().order_by('-created')
+    # .order_by('-created') to display most recent message first
+    room_messages = room.message_set.all()
     
     # m:m use .all()
     participants= room.participants.all()
