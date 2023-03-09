@@ -111,6 +111,7 @@ def room(request, pk):
             room=room,
             body=request.POST.get('body')
         )
+        room.participants.add(request.user)
         # make sure load the page with a get request
         return redirect('room', pk=room.id)
 
