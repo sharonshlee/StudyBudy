@@ -88,7 +88,9 @@ def home(request):
     topics = Topic.objects.all()
     # count() works faster than len()
     rooms_count = rooms.count()
-    room_messages = Message.objects.all()
+
+    # filtered messages shown in the recent activity based on topics
+    room_messages = Message.objects.filter(Q(room__topic__name__icontains=q))
 
     context = {'rooms': rooms, 'topics': topics, 'rooms_count': rooms_count,
                'room_messages': room_messages}
