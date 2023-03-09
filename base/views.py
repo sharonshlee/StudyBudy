@@ -99,7 +99,11 @@ def room(request, pk):
 
     # parent (room) query child model (message)
     # -created desc
+    # 1:m --> use message_set to access to many
     room_messages = room.message_set.all().order_by('-created')
+    
+    # m:m use .all()
+    participants= room.participants.all()
 
     if request.method == 'POST':
         message = Message.objects.create(
@@ -110,7 +114,7 @@ def room(request, pk):
         # make sure load the page with a get request
         return redirect('room', pk=room.id)
 
-    context = {'room': room, 'room_messages': room_messages}
+    context = {'room': room, 'room_messages': room_messages, 'participants': participants}
     return render(request, 'base/room.html', context)
 
 
