@@ -1,24 +1,19 @@
 <!DOCTYPE html>
 {% load static %}
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
-<html>
+<html lang="en">
 	<head>
-		<meta charset="utf-8" />
+		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<title>StudyBudy</title>
-		<meta name="description" content="" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link
-			rel="stylesheet"
-			type="text/css"
-			media="screen"
-			href="{% static 'styles/main.css' %}"
+			rel="shortcut icon"
+			href="assets/favicon.ico"
+			type="image/x-icon"
 		/>
-		<!-- static == find static/styles folder, main.css file -->
+		<link rel="stylesheet" href="{% static 'styles/style.css' %}" />
+		<title>StudyBuddy - Find study partners around the world!</title>
 	</head>
+
 	<body>
 		{% include 'navbar.html' %} {% if messages %}
 		<ul class="messages">
@@ -27,6 +22,7 @@
 			{% endfor %}
 		</ul>
 		{% endif %} {% block content %} {% endblock content %}
-		<script src="" async defer></script>
+
+		<script src="{% static 'js/script.js' %}"></script>
 	</body>
 </html>
